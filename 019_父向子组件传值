@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- 父组件可以通过属性绑定(v-bind)形式向子组件传值 -->
+    <div>{{ msg }}</div>
+    <my-com v-bind:parentmsg="msg"></my-com>
+  </div>
+
+  <script>
+  	var vm = new Vue({
+  		el : '#app',
+  		data : {
+        msg : '我是父组件呢，嘻嘻'
+  		},
+  		methods : {
+ 
+  		},
+      components : {
+        //子组件的data属性都是可读可写的，而prop属性是只读属性
+        myCom : {
+          template : "<h1>哎，我只是个子组件,但是我可以应用父组件，你看---{{ parentmsg }}</h1>",
+          props : ['parentmsg']
+        }
+      }
+  	})
+  </script>
+</body>
+</html>
