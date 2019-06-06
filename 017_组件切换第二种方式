@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="vue.js"></script>
+  <style type="text/css">
+    .v-enter,
+    .v-leave-to{
+      opacity: 0;
+      transform: translateX(150px);
+    }
+    .v-enter-active,
+    .v-leave-active{
+      transition: all 0.8s ease;
+
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <a href="" @click.prevent = "comName = 'login'">login</a>
+    <a href="" @click.prevent = "comName = 'resigin'">resigin</a>
+    <!-- Vue提供了component来展示对应名称的组件 -->
+    <!-- component 是占位符 -->
+    <!-- transition通过mode属性设置组件切换时候的模式 -->
+    <transition mode="out-in">
+      <component :is="comName"></component> 
+    </transition>
+    
+  </div>
+
+  <script>
+  Vue.component('login',{
+    template : '<h1>登录界面</h1>'
+  })
+  Vue.component('resigin',{
+    template : '<h1>注册界面</h1>'
+  })
+  	var vm = new Vue({
+  		el : '#app',
+  		data : {
+        comName : 'login'
+  		},
+  		methods : {
+ 
+  		}
+  	})
+  </script>
+</body>
+</html>
