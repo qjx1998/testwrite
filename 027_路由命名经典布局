@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="vue.js"></script>
+  <script src="vue-router.js"></script>
+  <style type="text/css">
+  *{
+    padding: 0;
+    margin: 0;
+  }
+    .header{
+      height: 100px;
+      background: #f0f;
+      line-height: 100px;
+    }
+    .contain{
+      display: flex;
+      height: 600px;
+    }
+    .left{
+      background: yellow;
+      flex : 3;
+    }
+    .right{
+      background: #8fd8;
+      flex : 7;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <router-view></router-view>
+    <div class="contain">
+      <router-view name="left"></router-view>
+      <router-view name="right"></router-view> 
+    </div> 
+  </div>
+
+  <script>
+  let headbox = {
+    template : '<h1 class="header">这是header</h1>'
+  }
+  let leftbox = {
+    template : '<h2 class="left">这是left</h2>'
+  }
+  let rightbox = {
+    template : '<h2 class="right">这是right</h2>'
+  }
+  let router = new VueRouter({
+    routes : [
+      {path : '/', components : {
+       'default' : headbox,
+       'left' : leftbox,
+       'right' : rightbox
+      }}
+    ]
+  })
+  	var vm = new Vue({
+  		el : '#app',
+  		data : {
+
+  		},
+  		methods : {
+ 
+  		},
+      router
+  	})
+  </script>
+</body>
+</html>
