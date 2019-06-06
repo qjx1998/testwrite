@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+	<title></title>
+	<script src="./vue.js"></script>
+   <style type="text/css"> 
+   </style>
+</head>
+<body>
+	<div id="app">
+    <input type="submit" @click = "flag = !flag">
+    <p v-if = "flag">计算机信息工程</p>
+    <p v-show = "flag">江西师范大学</p>    
+	</div>
+   <script>
+   	var vm = new Vue({
+   		el : "#app",
+   		data : {
+        flag : true    
+   		},
+   		methods : {
+           
+   		}
+   	})
+   </script>
+</body>
+</html>
