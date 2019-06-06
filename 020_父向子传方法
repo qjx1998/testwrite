@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <com2  @func="show"></com2>
+  </div>
+  <template id="use">
+      <div>
+        <h2>子组件</h2>
+        <input type="submit" @click="myclick" value="点击触发父组件方法">
+      </div>
+  </template>
+  <script>
+    let com2 = {
+      template : '#use',
+      methods : {
+         myclick(){
+           this.$emit('func',"hututu")
+         }
+      }     
+    }
+  	var vm = new Vue({
+  		el : '#app',
+  		data : {
+
+  		},
+  		methods : {
+        show(data){
+          console.log(`你触发了我的方法哦!嘻嘻${data}`);
+        }
+  		},
+      components : {
+        com2,
+        
+      }
+  	})
+  </script>
+</body>
+</html>
