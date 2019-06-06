@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="vue.js"></script>
+  <script src="vue-router.js"></script>
+  <style type="text/css">
+    .myrout{
+      color : red;
+      font-size: 20px;
+    }
+    .v-enter,
+    .v-leave-to{
+      opacity: 0;
+      transform: translateX(150px);
+    }
+    .v-enter-active,
+    .v-leave-active{
+      transition: all 0.8s ease;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+   <!--  <a href="#/login">登录</a>
+    <a href="#/resigist">注册</a> -->
+    <router-link to="/login" tag="span">登录</router-link>
+    <router-link to="/resigist" tag="span">注册</router-link>
+    <transition mode="out-in">
+      <router-view></router-view>
+    </transition>
+    
+  </div>
+
+  <script>
+    let login = {
+      template : '<h2>我是登录界面哦</h2>'
+    }
+    let resigist = {
+      template : '<h2>我是注册界面哦,xixi</h2>'
+    }
+    let routerObj = new VueRouter({
+      routes : [
+        {path : '/', redirect : "/login"},
+        {path : '/login', component : login},
+        {path : '/resigist', component : resigist}
+      ],
+      linkActiveClass : 'myrout'
+    })
+  	var vm = new Vue({
+  		el : '#app',
+  		data : {
+
+  		},
+  		methods : {
+ 
+  		},
+      router : routerObj
+  	})
+  </script>
+</body>
+</html>
