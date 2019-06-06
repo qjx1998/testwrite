@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+	<title></title>
+	<script src="./vue.js"></script>
+	<style>
+	  [cloak] :{
+	  	display: none;
+	  }	
+	</style>
+</head>
+<body>
+  <div id="app">
+  	<p v-cloak>{{ mag }}</p> 
+  	<div v-html="mag2"></div>
+  	<input type="submit" value="浪起来" @click="run">
+  	<input type="submit" value="别浪" @click="stop">
+  	<p>{{ mag4 }}</p>
+  </div>
+  <script>
+  	let vue = new Vue({
+  		el : "#app",
+  		data : {
+  			mag : "欢迎学习Vue",
+  			mag2 : "<h1>gldkfds<h1>",
+  			mag3 : "myBtn",
+  			mag4 : "~~~~~猥琐发育别浪,~~~稳住,能赢",
+  			a : null,
+  			temp : 0
+  		},
+  		methods : {
+  			run(){
+  				if(this.temp == 0){
+  				  this.temp = 1;
+  				  this.a = setInterval(()=>{
+  			  	  let b = document.getElementsByTagName('p')[1];
+  			  	  let c = this.mag4.substr(0,1);
+  			  	  let d = this.mag4.substring(1) + c;
+  			  	  this.mag4 = d;
+  			  },200)	
+  				}
+  			    	
+  			},
+  			stop(){
+  			  if(this.temp == 1){
+  			  	this.temp = 0;
+  			  	clearInterval(this.a);
+  			  }             
+  			}
+  		}
+  	})
+  </script>
+</body>
+</html>
