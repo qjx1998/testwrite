@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="vue.js"></script>
+  <script src="vue-router.js"></script>
+</head>
+<body>
+  <div id="app">
+    <router-link to="/temp">点击</router-link>
+    <router-view></router-view>
+  </div>
+  <template id="as">
+    <div>
+      <h1>父组件</h1>
+      <router-link to="/temp/login">login</router-link>
+      <router-link to="/temp/assgin">assgin</router-link>
+      <router-view></router-view>
+    </div>
+  </template>
+  <script>
+    let temp = {
+      template : '#as'
+    }
+    let login = {
+      template : '<h2>登录</h2>'
+    }
+    let assgin = {
+      template : '<h2>注册</h2>'
+    }
+    let router = new VueRouter({
+      routes : [
+        {
+          path : '/temp' , 
+          component : temp, 
+          children : [
+          // 子路由不要加斜线，否则永远以跟路径发起请求
+          { path : 'login', component : login},
+          { path : 'assgin', component : assgin}
+          ]
+        }
+      ]
+    })
+  	var vm = new Vue({
+  		el : '#app',
+  		data : {
+
+  		},
+  		methods : {
+ 
+  		},
+      router
+  	})
+  </script>
+</body>
+</html>
