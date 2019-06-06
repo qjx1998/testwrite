@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="vue.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+    //113为f2键盘码的码值
+    Vue.config.keyCodes.f2 = 113;
+  	var vm = new Vue({
+  		el : '#app',
+  		data : {
+
+  		},
+  		methods : {
+ 
+  		}
+  	})
+  </script>
+</body>
+</html>
