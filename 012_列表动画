@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="vue.js"></script>
+  <style type="text/css">
+    *{
+      list-style: none;
+    }
+    li{
+      border : 1px dashed #ccc;
+      line-height: 35px;
+      margin: 5px;
+      width: 800px;
+      padding-left: 5px;
+      font-size: 12px;
+    }
+    .form{
+      margin-left: 30px;
+    }
+    .v-enter,.v-leave-to{
+      opacity: 1;
+      transform: translateY(60px);
+    }
+    .v-enter-active, .v-leave-active{
+      transition: all 0.8s ease;
+    }
+    .v-move{
+      transition: all 0.8s ease;
+    }
+    .v-leave-active{
+      position: absolute;
+    }
+    li:hover{
+      background: pink;
+      transition: all 1s ease;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="form-inline form">
+      <div class="form-group">
+      <label class="control-label">
+        ID :
+        <input type="text" v-model="text1" class="form-control">
+      </label>
+    </div>
+    <div class="form-group">
+      <label class="control-label">
+        Name :
+        <input type="text" v-model="text2" class="form-control">
+      </label>
+        <input type="submit" @click="add" class="btn btn-warning">
+    </div>  
+    </div>
+      
+<!-- apper实现入场效果  tag属性指定渲染为什么元素 默认为span标签-->
+
+    <transition-group apper tag="ul">
+    
+      <li v-for="(item,index) in list" :key="item.id" @click="dis(index)">{{item.id}} --- {{item.name}}</li>
+  </transition-group>
+  </div>
+
+  <script>
+  	var vm = new Vue({
+  		el : '#app',
+  		data : {
+        list : [
+          {id : 1, name : '李白'},
+          {id : 2, name : '杜甫'},
+          {id : 3, name : '李商隐'},
+          {id : 4, name : '王安石'}
+
+        ],
+        text1 : "",
+        text2 : ""
+  		},
+  		methods : {
+        add(){
+          this.list.push({id : this.text1, name : this.text2});
+          this.text1 = "";
+          this.text2 = "";
+        },
+        dis(i){
+          this.list.splice(i,1);
+        }
+  		}
+  	})
+  </script>
+</body>
+</html>
