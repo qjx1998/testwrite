@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+	<title></title>
+	<script src="./vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<input type="text" v-model="num1">
+        <select v-model="num2">
+        	<option selected = "selected">+</option>
+        	<option>-</option>
+        	<option>*</option>
+        	<option>/</option>
+        </select>
+        <input type="text" v-model="num3">
+        <input type="submit" value="提交" @click="comput">
+        <span> {{ num4 }}</span>
+
+	</div>
+   <script>
+   	var vm = new Vue({
+   		el : "#app",
+   		data : {
+          num1 : null,
+          num2 : '+',
+          num3 : null,
+          num4 : null 
+   		},
+   		methods : {
+          comput(){
+          	let a = this.num2;
+          	let num1 = parseInt(this.num1);
+          	let num3 = parseInt(this.num3);
+          	if(a == '+'){
+          		this.num4 = (num1 + num3);
+          	}else if(a == '-'){
+          		this.num4 = (num1 - num3);
+            }else if(a == '*'){
+            	this.num4 = (num1 * num3);
+            }else if(a == '/'){
+            	if(num3 == '0'){
+            		this.num4 = 'error';
+            	}else{
+            		this.num4 = (num1 / num3);
+            	}
+            }
+          }
+   		}
+   	})
+   </script>
+</body>
+</html>
