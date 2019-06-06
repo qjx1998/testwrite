@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="./vue.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    
+</head>
+<body>
+  <div id="app">
+  	<div class="panel panel-primary">
+  		<div class="panel-heading">
+  			<h3 class="panel-title">
+  			  添加品牌
+  			</h3>
+  		</div>
+  		<div class="panel-body form-inline">
+  		  <label>
+  		  	ID:
+  		  	<input type="text" class="form-control" v-model="id">
+  		  </label>	
+  		  <label>
+  		  	Name:
+  		  	<input type="text" class="form-control" v-model="name" @keydown.enter="add">
+  		  </label>
+  		   <input type="button" value="添加" class="btn btn-success" @click="add">
+  		   <label class="control-label">
+  		   	  搜索銘誠關鍵字:
+  		   	  <input type="text" class="form-control" v-model="keywords" v-focus v-color="'red'">
+  		   </label>
+  		</div>
+  	</div>
+  	<table class="table table-border table-hover table-striped">
+  		<thead>
+  			<tr>
+  				<th>ID</th>
+  				<th>Name</th>
+  				<th>Ctime</th>
+  				<th>Operation</th>
+  			</tr>
+  		</thead>
+  		<tbody>
+  			<tr v-for="list in search(keywords)" :key='list.id'>
+  				<td>{{ list.id }}</td>
+  				<td>{{ list.name }}</td>
+  				<td>{{ list.addtime | changeTime("yyyy-mm-dd hh : mm : ss") }}</td>
+               <td><a @click.prevent="del(list.id)" role="button">刪除</a></td>
+  			</tr>
+  		</tbody>
+  	</table>
+  </div>
+
+  <script>
+  	Vue.filter('changeTime', (dateStr, times) => {
+  			let dt = new Date(dateStr);
+  			let y = dt.getFullYear();
+  			let m = dt.getMonth() + 1;
+  			let d = dt.getDate();
+  			if(times.toLowerCase() == "yyyy-mm-dd"){
+  				return `${y}-${m}-${d}`;
+  			}else{
+  				let hh = dt.getHours();
+  				let mm = dt.getMinutes();
+  				let ss = dt.getSeconds();
+  				return `${y}-${m}-${d} ${hh} : ${mm} : ${ss}`;
+  			}  
+  		})
+  	// 定义全局指令
+  	// 参数1 ： 指令名称 不需要加 v- 前缀 但在调用时一定要加 v-
+  	// 参数二： 是一个对象，里面是相关指令的参数，在特定时段执行相关操作
+  	Vue.directive('focus',{
+  		bind : function(el){  //指令绑定的时候，立即执行，且执行一次
+                             //第一个函数永远是el,表示被绑定指令的那个函数，是一个元素的js对象
+          //在元素刚绑定指令的时候，还没插入Dom中去，这个时候调用focus没有作用
+          //只有插入Dom才能获取焦点
+  		},
+  		inserted : function(el){  //inserted 表示元素插入DOM中的时候，会执行inserted函数【触发一次】
+         el.focus(); 
+         //和行为相关的最好放在inserted函数里边
+         //和样式有关的最好放在bind函数里边
+  		},
+  		updated : function(el){  //当Vnode更新的时候会执行uodate可能会执行多次
+
+  		}
+  	})
+  	Vue.directive('color',{
+  		//样式，只要绑定给了元素，不管元素有没有插入到页面里面去，这样元素肯定有了内联样式
+  		//这个元素肯定会渲染到页面里边去
+  		bind : function(el, binding){
+  			el.style.color = binding.value;
+  			//binding 有name, value , expression属性
+  			console.log(binding.name,binding.value,binding.expression); 
+  		},
+  		inserted : function(){
+
+  		},
+  		updated : function(){
+  			
+  		}
+  	})
+  	var vm = new Vue({
+  		el : '#app',
+  		data : {
+          lists : [
+           {id : 1,name : '宝马', addtime : new Date()},
+           {id : 2,name : '奔馳', addtime : new Date()},
+           
+          ],
+        id : null,
+        name : null,
+        keywords : ""
+  		},
+  		methods : {
+          add(){
+          	if(this.id == null || this.name == null){
+          		alert("id 或 name 不能為空");
+          	}else{
+          	  this.lists.push({id : this.id,name : this.name,addtime : new Date()});
+          	  this.id = null;
+          	  this.name = null;	
+          	}
+          	
+          },
+          del(item){
+            this.lists.some((dat,i) => {
+            	if(item == dat.id){
+            		this.lists.splice(i, 1);
+            		return true;
+            	}
+            })        
+          },
+          search(words){
+          	// let newlists = [];
+           //  this.lists.forEach(dat => {
+           //  	if(dat.name.includes(words)){
+           //  	  newlists.push(dat);   
+           //  	}
+           //  })
+           return this.lists.filter(dat => {
+           	 if(dat.name.includes(words)){
+           	 	return dat;
+           	 }
+           })
+            // return newlists;
+          }
+  		}
+  	})
+  	
+  </script>
+</body>
+</html>
