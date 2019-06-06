@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <my-com1></my-com1> 
+  </div>
+
+  <script>
+     // 用Vue.extends来创建全局Vue组件
+     let com1 = Vue.extend({
+        template : '<h3>这是使用Vue.extend 创建的组件<h3>' //,通过template属性来指定组件展示的HTML结构
+      })
+        //使用Vue.component('组件名称'，创建出来的组件模板对象)
+        Vue.component('myCom1',com1);
+  	var vm = new Vue({
+  		el : '#app',
+  		data : {
+        
+  		},
+  		methods : {
+ 
+  		}
+  	})
+  </script>
+</body>
+</html>
