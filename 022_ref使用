@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <a href="#" @click.prevent="show">点我啊</a>
+    <h3 ref="myh3">将军角弓不得控</h3>
+
+    <sm ref="mysm"></sm>
+  </div>
+
+  <script>
+    let sm = {
+      template : '<h2>我是组件，想不到吧</h2>'
+    }
+  	var vm = new Vue({
+  		el : '#app',
+  		data : {
+
+  		},
+  		methods : {
+        show(){
+          console.log(this.$refs.myh3.innerText);  
+          console.log(this.$refs.mysm)
+        }
+        
+  		},
+      components : {
+        sm
+      }
+  	})
+  </script>
+</body>
+</html>
