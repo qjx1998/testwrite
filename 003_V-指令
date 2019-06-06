@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+	<title></title>
+	<script src="./vue.js"></script>
+   <style type="text/css">
+    /* .col{
+       color : red;
+     }  */  
+   </style>
+</head>
+<body>
+	<div id="app">
+      <label>ID:<input type="text" v-model="data1"></label>
+      <label>name:<input type="text" v-model="data2"></label>
+      <label><input type="submit" value="添加" @click="add"></label>		
+      <p v-for="person in persons" :key="person.name"><input type="checkbox">{{ person.name }}</p>
+	</div>
+   <script>
+   	var vm = new Vue({
+   		el : "#app",
+   		data : {
+           persons : [
+             {id : 1, name : "张三"},
+             {id : 2, name : "李四"},
+             {id : 3, name : "王二"},
+             {id : 4, name : "麻子"},
+             {id : 5, name : "小明"},
+           ],
+           data1 : 6,
+           data2 : null
+   		},
+   		methods : {
+           add(){
+             this.persons.unshift({id : this.data1, name : this.data2});
+           } 
+   		}
+   	})
+   </script>
+</body>
+</html>
