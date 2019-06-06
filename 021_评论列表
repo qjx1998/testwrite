@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="vue.js"></script>
+  <style type="text/css">
+    ul{
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="container">
+      <combox @func="localComments"></combox>
+      <ul class="list-group">
+      <li class="list-group-item" v-for="item in list">
+        <span class="badge">评论人: {{ item.name }}</span>
+        {{ item.contents }}
+      </li>
+    </ul>
+    </div>
+       
+  </div>
+  <template id="bbox">
+    <form class="form-inline">
+      <div class="form-group">
+        <label class="setname1">姓名:</label> 
+        <input type="text" class="form-control" placeholder="孔子" v-model="user">
+      </div>
+      <div class="form-group">
+        <label class="setname2">评论:</label>
+        <input type="text" class="form-control" placeholder="逝者如斯夫，不舍昼夜" v-model="cont">
+      </div>
+      <button type="button" class="btn btn-warning" @click="postCommend" >发表我的评论</button>
+    </form>
+  </template>
+  <script>
+  let combox = {
+    data(){
+      return {
+        user : '',
+        cont : ''
+      }
+    },
+    methods : {
+      postCommend(){
+        let commont = {id : Date.now(), name : this.user, contents : this.cont}
+        let list = JSON.parse(localStorage.getItem('cmts') || '[]')
+        list.unshift(commont)
+        localStorage.setItem('cmts',JSON.stringify(list))
+        this.user = this.cont = ""
+        this.$emit('func')
+      }    
+    },
+    template : '#bbox'
+  }
+  	var vm = new Vue({
+  		el : '#app',
+  		data : {
+        list : [
+          {id : Date.now(), name : '李白' , contents : '劝君更尽一杯酒，西出阳关无故人'},
+          {id : Date.now(), name : '陶渊明', contents : '采菊东篱下，悠然见南山'},
+          {id : Date.now(), name : '杜甫' , contents : '安得广厦千万间,大庇天下寒士俱欢颜'}
+        ]
+  		},
+      created(){
+        this.localComments()
+      },
+  		methods : {
+        localComments(){
+          let list = JSON.parse(localStorage.getItem('cmts') || '[]')
+          this.list = list  
+        } 
+  		},
+      components : {
+        combox
+      }
+  	})
+  </script>
+</body>
+</html>
