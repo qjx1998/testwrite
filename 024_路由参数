@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="vue.js"></script>
+  <script src="vue-router.js"></script>
+</head>
+<body>
+  <div id="app">
+    <router-link to="/login?id=12&name=zs">登录</router-link>
+    <router-link to="/regist">注册</router-link>
+    <router-view></router-view>
+  </div>
+
+  <script>
+  let login = {
+    template : "<h1>登录组件 === {{ $route.query.id }} === {{ $route.query.name }}</h1>",
+    
+  }
+  let regist = {
+    template : "<h1>注册组件</h1>"
+  }
+  let router = new VueRouter({
+    routes : [
+      {path : '/', redirect : '/login'},
+      {path : '/login', component : login},
+      {path : '/regist', component : regist}
+    ]
+  })
+  	var vm = new Vue({
+  		el : '#app',
+  		data : {
+
+  		},
+  		methods : {
+      
+  		},
+      router
+  	})
+  </script>
+</body>
+</html>
