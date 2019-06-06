@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="vue.js"></script>
+  <script src="vue-router.js"></script>
+</head>
+<body>
+  <div id="app">
+    <router-link to="/login">点我</router-link> 
+    <router-link to="/asigin">点我1</router-link> 
+    <router-view></router-view>
+  </div>
+
+  <script>
+  let login = {
+    template : '<h1>1343254</h1>'
+  }
+  let asigin = {
+    template : '<h1>356sdfdsfds</h1>'
+  }
+  let router = new VueRouter({
+    routes : [
+      {path : '/', redirect : '/login'},
+      {path : '/login', component : login},
+      {path : '/asigin', component : asigin}
+    ]
+  })
+  	var vm = new Vue({
+  		el : '#app',
+  		data : {
+        
+  		},
+  		methods : {
+ 
+  		},
+      router
+  	})
+  </script>
+</body>
+</html>
