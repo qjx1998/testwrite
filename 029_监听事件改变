@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="vue.js"></script>
+  <script src="vue-router.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- @keyup='mess'可监听事件的改变 -->
+    <input type="text" v-model='msga'> + 
+    <input type="text" v-model='msgb'> =
+    <input type="text" v-model='msgc'>
+  </div>
+
+  <script>
+  	var vm = new Vue({
+  		el : '#app',
+  		data : {
+        msga : '',
+        msgb : '',
+        msgc : ''  
+  		},
+  		methods : {
+        // mess(){
+        //   this.msg3 = this.msg1 + " " +this.msg2
+        // }
+  		},
+      watch : {
+        msga(){
+          this.msgc = this.msga + " " + this.msgb
+        },
+        msgb(){
+          this.msgc = this.msga + " " + this.msgb
+        }
+      }
+  	})
+  </script>
+</body>
+</html>
