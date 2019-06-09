@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="vue.js"></script>
+  <script src="vue-router.js"></script>
+</head>
+<body>
+  <div id="app">
+    <templ :parar="msg" @func="getmess"></templ>
+  </div>
+  <template id="as">
+    <div>
+     <h1>啦啦啦 --- {{ parar }}</h1>  
+     <input type="submit" @click="sendmess"> 
+    </div>
+    
+  </template>
+  <script>
+  let templ = {
+    template : '#as',
+    props : ['parar'],
+    data(){
+      return {
+        msg : '向父组件传递'
+      }
+    },
+    methods: {
+      sendmess(){
+        this.$emit('func',this.msg)
+      }
+    }
+  }
+  	var vm = new Vue({
+  		el : '#app',
+  		data : {
+        msg : 'i am a father vue',
+        getMsgFromSon : ''
+  		},
+  		methods : {
+        getmess(data){
+          this.getMsgFromSon = data
+          console.log(this.getMsgFromSon);
+        }
+  		},
+      components : {
+        templ
+      }
+  	})
+  </script>
+</body>
+</html>
